@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Subir Video</title>
+  </head>
+  <body>
+    <form id="uploadForm">
+      <input type="file" name="video" accept="video/*" required />
+      <input type="text" name="title" placeholder="Título" required />
+      <textarea
+        name="description"
+        placeholder="Descripción"
+        required
+      ></textarea>
+      <button type="submit">Subir Video</button>
+    </form>
+
+    <script>
+      document
+        .getElementById("uploadForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const formData = new FormData(e.target);
+          try {
+            const token = "TU_TOKEN_JWT_AQUÍ"; // Reemplaza esto con un token válido
+            const response = await fetch(
+              "http://localhost:5000/api/videos/upload",
+              {
+                method: "POST",
+                body: formData,
+                headers: {
+                  Authorization: token,
+                },
+              }
+            );
+            if (response.ok) {
+              console.log("Video subido con éxito");
+            } else {
+              console.error("Error al subir el video");
+            }
+          } catch (error) {
+            console.error("Error:", error);
+          }
+        });
+    </script>
+  </body>
+</html>

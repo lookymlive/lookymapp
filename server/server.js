@@ -68,7 +68,7 @@ async function initializeApp() {
   try {
     const dbSecret = await getSecret('nombre-de-tu-secreto-en-aws');
 
-    mongoose.connect(`mongodb://${dbSecret.username}:${dbSecret.password}@${dbSecret.host}:${dbSecret.port}/${dbSecret.dbname}`)
+    mongoose.connect(process.env.MONGODB_URI)
       .then(() => console.log('Conectado a MongoDB'))
       .catch(err => {
         console.error('Error al conectar a MongoDB:', err);
